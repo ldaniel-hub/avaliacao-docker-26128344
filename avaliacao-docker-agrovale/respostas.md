@@ -51,6 +51,38 @@ O serviço db não expõe a porta 3306 para o host por motivos de segurança, ev
 
 9. Quais comandos você usou para derrubar e subir a stack? Qual comando teria apagado o post que você criou,
 e por quê?
-
+docker compose down e docker compose up -d, docker compose down -v. O parâmetro -v remove os volumes nomeados gerenciados pelo Docker, onde estão armazenados o banco de dados MariaDB e os arquivos do WordPress. Sem a flag -v, o docker compose down remove apenas os containers e a rede virtual, preservando os dados gravados nos volumes no hospedeiro.
 
 10. Código de conclusão impresso pelo verificador:
+================================================================                                                                                                                
+ Verificador · Avaliação Prática de Docker · Turma A                                                                                                                            
+================================================================                                                                                                                
+ Matrícula 26128344 · portal 8044 · blog 9044 · manutenção 7044                                                                                                                 
+                                                                                                                                                                                
+A. Arquivos, imagens e Git                                                                                                                                                      
+[ OK ] A1 portal/Dockerfile segue os requisitos
+[ OK ] A2 imagem manutencao:26128344 corrigida e servindo o aviso
+[FALHA] A3 .env fora do Git e .env.example versionado
+         -> confira o .gitignore e rode: git ls-files
+[ OK ] A4 5+ commits e remoto no GitHub (encontrados: 5)
+[ OK ] A5 imagem lucasr32/agrovale-portal:1.0-26128344 pública no Docker Hub
+
+B. Stack em execução
+[ OK ] B1 serviços portal, blog e db em execução
+[ OK ] B2 portal roda a imagem publicada                                                                                                                                        
+[ OK ] B3 portas: portal em 8044 e blog em 9044                                                                                                                                 
+[ OK ] B4 db sem porta publicada e com volume nomeado                                                                                                                           
+[ OK ] B5 blog com volume nomeado em /var/www/html                                                                                                                              
+[ OK ] B6 rede própria compartilhada pelos três serviços                                                                                                                        
+[ OK ] B7 política de restart nos três serviços                                                                                                                                 
+[ OK ] B8 nenhuma senha escrita direto no docker-compose.yml
+
+C. Conteúdo e persistência
+[ OK ] C1 portal mostra seu nome e sua matrícula
+[ OK ] C2 WordPress instalado com a matrícula no título do site
+[ OK ] C3 post sobreviveu à recriação do blog (post 2026-10-06T01:06:45 · container 2026-10-06T01:19:07)
+
+================================================================
+ Resultado: 15/16 verificações
+ Ainda há falhas. Corrija e rode de novo.
+================================================================

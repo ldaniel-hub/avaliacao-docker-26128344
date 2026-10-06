@@ -31,11 +31,12 @@ O repositório precisa estar público para que a avaliação consiga realizar o 
 
 | # | Instrução | O que estava errado | O que você viu acontecer | Como corrigiu |
 |---|---|---|---|---|
-| 1 | | | | |
-| 2 | | | | |
-| 3 | | | | |
+| 1 | WORKDIR /usr/share/nginx | Apontava para a pasta raiz do Nginx e não para a pasta html de servimento de ficheiros. | O Nginx servia a página predefinida "Welcome to nginx!". | Alterado para WORKDIR /usr/share/nginx/html. |
+| 2 | COPY (Ausente) | Não existia instrução para copiar os ficheiros da pasta site/ para dentro do container | Os ficheiros do site de manutenção não entravam na imagem | Adicionada a instrução COPY site/ . |
+| 3 | EXPOSE (Ausente) | A porta 80 do container não estava documentada nos metadados.    | A imagem não declarava a porta interna exposta | Adicionada a instrução EXPOSE 80. |
 
 6. Qual a diferença entre `-p 7042:80` e `-p 80:7042` no `docker run`? Qual dos dois números é a porta do container?
+Um mapeia a porta 7044 do host para a porta 80 do container e o outro mapearia a porta 80 do host para a porta 7044 do container.
 
 ## Parte 4 · docker-compose.yml
 

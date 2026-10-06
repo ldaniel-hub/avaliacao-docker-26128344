@@ -1,6 +1,6 @@
 services:
   portal:
-    image: lucasr32/agrovale-portal:1.0-23128344
+    image: lucasr32/agrovale-portal:1.0-26128344
     ports:
       - "8044:80"
     restart: unless-stopped

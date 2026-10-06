@@ -1,0 +1,46 @@
+services:
+  portal:
+    image: lucasr32/agrovale-portal:1.0-23128344
+    ports:
+      - "8044:80"
+    restart: unless-stopped
+    networks:
+      - agrovale-net
+
+  db:
+    image: mariadb:11.4
+    environment:
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: unless-stopped
+    networks:
+      - agrovale-net
+
+  blog:
+    image: wordpress:6-apache
+    ports:
+      - "9044:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: ${MARIADB_DATABASE}
+      WORDPRESS_DB_USER: ${MARIADB_USER}
+      WORDPRESS_DB_PASSWORD: ${MARIADB_PASSWORD}
+    volumes:
+      - blog_data:/var/www/html
+    depends_on:
+      - db
+    restart: unless-stopped
+    networks:
+      - agrovale-net
+
+volumes:
+  db_data:
+  blog_data:
+
+networks:
+  agrovale-net:
+    driver: bridge

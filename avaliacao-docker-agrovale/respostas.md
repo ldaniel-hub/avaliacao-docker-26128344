@@ -41,17 +41,16 @@ Um mapeia a porta 7044 do host para a porta 80 do container e o outro mapearia a
 ## Parte 4 · docker-compose.yml
 
 7. No serviço `blog`, por que `WORDPRESS_DB_HOST` recebe `db` e não `localhost`?
+O valor db é o nome do serviço definido no docker-compose.yml, dentro da rede compartilhada do Docker o servidor DNS interno do Docker resolve o nome do serviço diretamente para o IP do container do banco de dados. Se fosse utilizado o localhost, o WordPress tentaria procurar a base de dados dentro do seu próprio container, gerando erro de conexão.
 
 8. Por que o serviço `db` não publica a porta 3306? Se precisar consultar o banco, como faz sem publicar
-   a porta? Mostre o comando.
+a porta? Mostre o comando.
+O serviço db não expõe a porta 3306 para o host por motivos de segurança, evitando que o banco de dados fique exposto a acessos não autorizados ou ataques externos. Para consultar o banco diretamente sem publicar a porta, executamos o cliente interativo do MariaDB dentro do próprio container com o comando: docker exec -it avaliacao-docker-agrovale-db-1 mariadb -u agrovale -pavaliacaodb agrovale_blog
 
 ## Parte 5 · Persistência
 
 9. Quais comandos você usou para derrubar e subir a stack? Qual comando teria apagado o post que você criou,
-   e por quê?
+e por quê?
+
 
 10. Código de conclusão impresso pelo verificador:
-
-```
-(cole aqui)
-```
